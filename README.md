@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+# ArtChainGallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ArtChainGallery is a modern art gallery application built using React, Redux, Vite, and ShadcnUI. The project features a virtual exhibition space allowing users to browse various artworks and learn about their details.
 
-Currently, two official plugins are available:
+## Technology Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React**: A JavaScript library for building user interfaces.
+- **Redux**: A state management library used to manage application state in React.
+- **Vite**: A modern front-end development and build tool that provides fast cold starts and instant hot module replacement.
+- **ShadcnUI**: A React-based UI component library for quickly developing beautiful interfaces.
 
-## Expanding the ESLint configuration
+## Quick Start
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To run ArtChainGallery locally, follow these steps:
 
-- Configure the top-level `parserOptions` property like this:
+### Clone the Repository
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+First, clone the repository to your local machine:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+git clone git@github.com:xiaobaiwenlian/ArtChainGallery.git
+cd ArtChainGallery
+
+### Install Dependencies
+
+Use `pnpm` to install the project dependencies:
+
+pnpm install
+
+### 运行开发服务器
+
+Start the development server to preview the project locally:
+
+pnpm run dev
+
+This command will launch a local server, and it will update in real-time whenever you make changes to the code.
+
+### Build the Project
+
+To build the application for production, run:
+
+pnpm run build
+
+After building, you can find the output static files in the `dist/` directory, ready for deployment.
+
+## Contributing
+
+Contributions to ArtChainGallery are welcome. Please start by opening an issue to discuss the problem you are facing or the feature you would like to add, then you can submit a Pull Request.
+
+## 许可证
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
