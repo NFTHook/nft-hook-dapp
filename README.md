@@ -26,7 +26,7 @@ Use `pnpm` to install the project dependencies:
 
 pnpm install
 
-### 运行开发服务器
+### Run Development Server
 
 Start the development server to preview the project locally:
 
@@ -46,6 +46,6 @@ After building, you can find the output static files in the `dist/` directory, r
 
 Contributions to ArtChainGallery are welcome. Please start by opening an issue to discuss the problem you are facing or the feature you would like to add, then you can submit a Pull Request.
 
-## 许可证
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
