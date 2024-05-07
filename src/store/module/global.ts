@@ -1,22 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+
+type Device = 'desktop' | 'mobile'
+interface State {
+  device: Device
+}
+
+const initialState: State = {
+  device: 'desktop'
+}
 
 export const globalSlice = createSlice({
   name: 'global',
-  initialState: {
-    connect: false,
-    isHamburger: false,
-  },
+  initialState,
   reducers: {
-    setConnect: (state, { payload }) => {
-      state.connect = payload
-    },
-    setHamburger: (state, { payload }) => {
-      state.isHamburger = payload
+    setDevice: (state, action: PayloadAction<Device>) => {
+      state.device = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const globalActions = globalSlice.actions
+export const { setDevice } = globalSlice.actions
 
 export default globalSlice.reducer
