@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { useAppSelector, RootState } from '@/store';
 import { Button } from "@/components/ui/button";
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Link } from "react-router-dom";
 
 import NFT from '@/components/NFT';
 
@@ -22,7 +23,7 @@ export default function Homepage() {
             <Wrapper className='w-full mx-auto px-2 lg:px-4 max-w-screen-xl mt-4'>
                 {
                     [1,2,3,4,5,6,7,8,9,10].map(v => {
-                        return <NFT key={v}/>
+                        return <Link to={`/mint/${v}`} key={v}><NFT src={'https://images.blur.io/_blur-prod/0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949/7837-b909f461a085ef8e?w=512'} /></Link>
                     })
                 }
             </Wrapper>

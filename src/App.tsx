@@ -5,6 +5,9 @@ import { useAppDispatch, useAppSelector, RootState } from "@/store";
 import { setDevice } from "@/store/module/global";
 import Layout from '@/layout/Layout';
 import Homepage from "@/views/Homepage";
+import About from "@/views/About";
+import Faqs from "@/views/Faqs";
+import Mint from "@/views/MintPage";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -33,6 +36,18 @@ function App() {
                 {
                     path: "",
                     Component: Homepage,
+                },
+                {
+                    path: "/about",
+                    Component: About,
+                },
+                {
+                    path: "/faqs",
+                    Component: Faqs,
+                },
+                {
+                    path: "/mint/:ca",
+                    Component: Mint,
                 },
             ],
         },

@@ -30,13 +30,13 @@ const Header = () => {
     }, [status, chain, address]);
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-28 max-w-screen-xl items-center text-sm">
                 <div className="mr-4 hidden md:flex pl-8">
                     <a href="/" className="mr-6 w-8">
                         <LOGO />
                     </a>
-                    <a href="/home" className="mr-6 flex items-center space-x-2">
+                    <a href="/" className="mr-6 flex items-center space-x-2">
                         Home
                     </a>
                     <a href="/about" className="mr-6 flex items-center space-x-2">
