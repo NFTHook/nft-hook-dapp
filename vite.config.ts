@@ -10,4 +10,13 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"),
         },
     },
+    server: {
+        proxy: {
+          '/localapi': {
+            target: "https://qianji-api.nfthook.xyz",
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/localapi/, '')
+          }
+        }
+    }
 });

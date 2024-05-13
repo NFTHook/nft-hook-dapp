@@ -1,13 +1,33 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import { useAppSelector, RootState } from '@/store';
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Link } from "react-router-dom";
-
+import { nftList } from '@/api';
+import { NFTv0 } from './type';
+import { ResultEnum } from '@/enums/httpEnum';
+import { useToast } from "@/components/ui/use-toast";
 import NFT from '@/components/NFT';
 
 export default function Homepage() {
     const storeDevice = useAppSelector((s: RootState) => s.global.device)
+    const { toast } = useToast()
+    const [list, setList] = useState<NFTv0[] | null>(null)
+
+    useEffect(() => {
+        if (list) return;
+        nftList().then(res => {
+            if (res.code === ResultEnum.SUCCESS) {
+                setList(res.data.list)
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: res.message,
+                })
+            }
+        })
+    }, [])
 
     return (
         <>
@@ -22,8 +42,8 @@ export default function Homepage() {
             </Banner>
             <Wrapper className='w-full mx-auto px-2 lg:px-4 max-w-screen-xl mt-4'>
                 {
-                    [1,2,3,4,5,6,7,8,9,10].map(v => {
-                        return <Link to={`/mint/${v}`} key={v}><NFT src={'https://images.blur.io/_blur-prod/0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949/7837-b909f461a085ef8e?w=512'} /></Link>
+                    list?.map((v, i) => {
+                        return <Link to={`/mint/${v.contract_addr}`} key={i}><NFT options={v} /></Link>
                     })
                 }
             </Wrapper>

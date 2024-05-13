@@ -1,18 +1,15 @@
 import styled from 'styled-components';
 import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { NFTv0 } from '@/views/Homepage/type';
 
-interface Prop {
-    src: string
-}
-
-export default function NFT({ src }: Prop) {
+export default function NFT({ options }: { options: NFTv0 }) {
     return (
         <NFTWrapper>
             <AspectRatio ratio={9 / 9} className="bg-muted overflow-hidden">
-                <img className='image rounded-none object-cover' src={src} alt="" />
+                <img className='image rounded-none object-cover' src={options.img} alt="" />
             </AspectRatio>
-            <h3 className='text-sm py-2'>Bonsai #32</h3>
-            <h1 className='barlow-medium pb-3'>From ¥11,650 JPY</h1>
+            <h3 className='text-sm py-2'>Chain {options.chain_name}</h3>
+            <h1 className='barlow-medium pb-3'>{options.name}</h1>
         </NFTWrapper>
     )
 }
