@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useDisconnect } from "wagmi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setAddress } from "@/store/module/user";
 import { useAppDispatch, useAppSelector, RootState } from "@/store";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ListCollapse } from 'lucide-react';
+import { ListCollapse } from "lucide-react";
 import LOGO from "@/components/Logo";
 
 const Header = () => {
@@ -14,12 +14,13 @@ const Header = () => {
     const storeAddress = useAppSelector((s: RootState) => s.user.address);
     const { address, status, chain } = useAccount();
     const { open } = useWeb3Modal();
-    const { disconnect } = useDisconnect()
+    const { disconnect } = useDisconnect();
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScrollTop, setLastScrollTop] = useState(0);
 
     const logoutFn = () => {
-        // dispatch(setAddress(""));
-        disconnect()
-    }
+        disconnect();
+    };
 
     useEffect(() => {
         if (address) {
@@ -29,9 +30,30 @@ const Header = () => {
         }
     }, [status, chain, address]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Scroll down
+                showHeader && setShowHeader(false);
+            } else {
+                // Scroll up
+                !showHeader && setShowHeader(true);
+            }
+            setLastScrollTop(scrollTop);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollTop]);
+
     return (
-        <header className="top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-28 max-w-screen-xl items-center text-sm">
+        <HeaderW className={`${showHeader ? 'show' : 'hide'} sticky z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-background/60`}>
+            <HeaderContainer className="container flex max-w-screen-xl items-center text-sm">
                 <div className="mr-4 hidden md:flex pl-8">
                     <a href="/" className="mr-6 w-16">
                         <LOGO />
@@ -50,18 +72,24 @@ const Header = () => {
                     <LOGO />
                 </div>
                 {/* <ListCollapse strokeWidth={2} /> */}
-                <Account className="md:pr-8">{
-                    storeAddress 
-                    ?   <DropdownMenu>
-                            <DropdownMenuTrigger asChild><Button variant="link">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</Button></DropdownMenuTrigger>
+                <Account className="md:pr-8">
+                    {storeAddress ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="link">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</Button>
+                            </DropdownMenuTrigger>
                             <DropdownMenuContent>
-                                <DropdownMenuItem onClick={() => logoutFn()} className="cursor-pointer">Logout</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => logoutFn()} className="cursor-pointer">
+                                    Logout
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
-                    :   <Button onClick={() => open()}>Connect Wallet</Button>
-                }</Account>
-            </div>
-        </header>
+                    ) : (
+                        <Button onClick={() => open()}>Connect Wallet</Button>
+                    )}
+                </Account>
+            </HeaderContainer>
+        </HeaderW>
     );
 };
 
@@ -69,4 +97,16 @@ export default Header;
 
 const Account = styled.div`
     margin-left: auto;
+`;
+const HeaderW = styled.header`
+    transition: all .3s;
+    &.show {
+        top: 0;
+    }
+    &.hide {
+        top: -${({ theme }) => theme.headerHeight};
+    }
+`
+const HeaderContainer = styled.div`
+    height: ${({ theme }) => theme.headerHeight};
 `;

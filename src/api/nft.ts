@@ -1,4 +1,5 @@
 import service from '@/utils/request.js';
+import { PriceV0, NftInfo } from '@/views/MintPage/type';
 import qs from "qs";
 
 interface BasicResponseModel<T = any> {
@@ -22,7 +23,13 @@ export function nftList(params = {}): Promise<BasicResponseModel> {
     });
 }
 
-export function nftDetail(params: DetailParams): Promise<BasicResponseModel> {
+type NftResponse = BasicResponseModel<{
+  abi: ReadonlyArray<unknown>,
+  btns: PriceV0[]
+  info: NftInfo
+}>
+
+export function nftDetail(params: DetailParams): Promise<NftResponse> {
     return service({
         url: `/api/v1/nft/nft_detail`,
         headers: {

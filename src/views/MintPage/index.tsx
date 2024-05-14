@@ -11,13 +11,14 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { useToast } from "@/components/ui/use-toast";
 import { formatEther } from 'viem'
 import { NftInfo, PriceV0 } from './type';
+import ImageWithFallbackProps from '@/components/Image/index';
 
 export default function Mint() {
     const { ca } = useParams<string>()
     const { toast } = useToast()
     const [ contractAddr, setContractAddr ] = useState<`0x${string}`>()
     const [ abi, setAbi ] = useState<ReadonlyArray<unknown>>([])
-    const [ info, setInfo ] = useState<NftInfo | null>(null)
+    const [ info, setInfo ] = useState<NftInfo>(null)
     const [ priceList, setPriceList ] = useState<PriceV0[] | null>(null)
     const { data: hash, isPending, writeContract } = useWriteContract()
     const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash })
@@ -96,7 +97,7 @@ const Detail = styled.div`
     gap: 32px;
 `
 
-const Image = styled.img`
+const Image = styled(ImageWithFallbackProps)`
     flex: 0 0 500px;
     max-width: 500px;
 `

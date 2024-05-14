@@ -9,6 +9,7 @@ export const device = {
 };
 
 export const theme: DefaultTheme = {
+    headerHeight: `112px`,
     media: {
         sm: (...args: [any]) => css`
             @media (max-width: ${device.smw}px) {
