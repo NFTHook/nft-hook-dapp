@@ -97,7 +97,8 @@ const Detail = styled.div`
 `
 
 const Image = styled.img`
-    flex: 0 0 400px;
+    flex: 0 0 500px;
+    max-width: 500px;
 `
 
 const Info = styled.div`
