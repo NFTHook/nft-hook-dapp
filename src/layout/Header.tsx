@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useAccount, useDisconnect } from "wagmi";
+import { useAccount, useDisconnect, useBalance } from "wagmi";
+import { formatEther } from 'viem';
 import { useEffect, useState } from "react";
 import { setAddress } from "@/store/module/user";
 import { useAppDispatch, useAppSelector, RootState } from "@/store";
@@ -12,6 +13,7 @@ import LOGO from "@/components/Logo";
 const Header = () => {
     const dispatch = useAppDispatch();
     const storeAddress = useAppSelector((s: RootState) => s.user.address);
+    const { data: account } = useBalance({ address: `0x${storeAddress.substring(2)}` })
     const { address, status, chain } = useAccount();
     const { open } = useWeb3Modal();
     const { disconnect } = useDisconnect();
@@ -72,11 +74,11 @@ const Header = () => {
                     <LOGO />
                 </div>
                 {/* <ListCollapse strokeWidth={2} /> */}
-                <Account className="md:pr-8">
+                <Account className="md:mr-8">
                     {storeAddress ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="link">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</Button>
+                                <Button className="rounded-lg flex items-center justify-between divide-x divide-gray-300" variant="outline"><span className="pr-3">{ formatEther(account?.value ?? 0n).substring(0, 4) }{ account?.symbol }</span> <span className="pl-3">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</span></Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem onClick={() => logoutFn()} className="cursor-pointer">

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Ping from "@/components/ui/ping";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -11,14 +12,19 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { useToast } from "@/components/ui/use-toast";
 import { formatEther } from 'viem'
 import { NftInfo, PriceV0 } from './type';
+import { useAppDispatch, useAppSelector, RootState } from "@/store";
+import { CircleCheckBig } from 'lucide-react';
 import ImageWithFallbackProps from '@/components/Image/index';
 
 export default function Mint() {
+    const dispatch = useAppDispatch()
+    const storeAddress = useAppSelector((s: RootState) => s.user.address);
+    const { open } = useWeb3Modal();
     const { ca } = useParams<string>()
     const { toast } = useToast()
     const [ contractAddr, setContractAddr ] = useState<`0x${string}`>()
     const [ abi, setAbi ] = useState<ReadonlyArray<unknown>>([])
-    const [ info, setInfo ] = useState<NftInfo>(null)
+    const [ info, setInfo ] = useState<NftInfo | null>(null)
     const [ priceList, setPriceList ] = useState<PriceV0[] | null>(null)
     const { data: hash, isPending, writeContract } = useWriteContract()
     const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash })
@@ -35,11 +41,19 @@ export default function Mint() {
             } else {
                 toast({
                     variant: "destructive",
-                    title: res.message,
+                    title: res.message || 'Something Error.',
                 })
             }
         })
     }, [])
+
+    useEffect(() => {
+        isConfirming && toast({
+            title: 'Transaction',
+            description: 'The transaction has been submitted toblockchain.',
+            action: <CircleCheckBig className='text-green-600' />,
+        })
+    }, [isConfirming])
 
     useEffect(() => {
         if (ca) {
@@ -48,6 +62,9 @@ export default function Mint() {
     }, [ca])
 
     const mintFun = (count: number) => {
+        if (!storeAddress) {
+            return open()
+        }
         if (contractAddr) {
             writeContract({
                 address: contractAddr,
@@ -61,7 +78,7 @@ export default function Mint() {
     return (
         <>
             <Detail className='px-2 md:px-0 md:max-w-screen-lg flex-col md:flex-row mx-auto mt-10'>
-                <Image src={info?.img}></Image>
+                <Image src={info?.img ?? ''}></Image>
                 <Info>
                     <div>
                         <Badge><Ping /><span className='ml-1'>Minting now</span></Badge>
@@ -79,7 +96,7 @@ export default function Mint() {
                                         (isPending || isConfirming) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <></>
                                     }
                                     
-                                    Mint { v.mint_cnt } for <span className='barlow-medium-italic'>{ Number(formatEther(BigInt(v.value))) * v.mint_cnt }</span> ETH
+                                    Mint { v.mint_cnt } for <span className='barlow-medium-italic px-1'> { Number(formatEther(BigInt(v.value))) * v.mint_cnt } </span> ETH
                                 </Button>
                             })
                         }

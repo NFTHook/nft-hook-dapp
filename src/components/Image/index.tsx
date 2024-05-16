@@ -1,45 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Default from './defaut_avatar.svg';
 
-interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  src: string;
+interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  loadingImg?: string,
+  errorImg?: string,
+  src: string,
+  alt?: string,
 }
 
-const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
+const Image: React.FC<ImageProps> = ({
   src,
   alt,
   ...props
 }) => {
-  const [imgSrc, setImgSrc] = useState<string>(Default);
-  const [imgStatus, setImgStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
+  const imgRef = useRef<HTMLDivElement>(null);
+  const [neededSrc, setNeededSrc] = useState(Default || src);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    setImgSrc(Default);
-    setImgStatus('loading');
-    console.log('loading')
-  }, [src]);
+  const onLoad = (url: string) => {
+    console.log('handleOnLoad..')
 
-  const handleLoad = () => {
-    setImgSrc(src);
-    setImgStatus('loaded');
-    console.log('loaded')
-  };
+    setError(false);
+    const imgDom = document.createElement('img');
+    imgDom.src = url;
+    imgDom.onload = function () {
+      console.log('onload--');
+      setNeededSrc(url);
+    }
+    imgDom.onerror = () => {
+      onError();
+    };
+  }
 
-  const handleError = () => {
-    setImgSrc(Default);
-    setImgStatus('error');
-    console.log('error')
-  };
+  // 加载失败
+  const onError = () => {
+    setNeededSrc(Default);
+  }
 
   return (
-    <img
-      src={imgSrc}
-      alt={alt}
-      onLoad={handleLoad}
-      onError={handleError}
-      {...props}
-    />
+    <div ref={imgRef} className="img">
+      <img
+        src={neededSrc}
+        alt={alt}
+        onLoad={() => onLoad(src)}
+        onError={() => onError()}
+        {...props}
+      />
+    </div>
   );
 };
 
-export default ImageWithFallback;
+export default Image;
