@@ -8,6 +8,7 @@ import { nftList } from '@/api';
 import { NFTv0 } from './type';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useToast } from "@/components/ui/use-toast";
+import Skeleton from 'react-loading-skeleton';
 import NFT from '@/components/NFT';
 
 export default function Homepage() {
@@ -36,25 +37,34 @@ export default function Homepage() {
                     <Image />
                     <Cover>
                         <h1 className='barlow-light text-4xl md:text-6xl text-white'>Original Artwork</h1>
-                        <Button variant="outline" className='text-white mt-8 px-8 text-base'>Show All</Button>
+                        <Button variant="outline" className='text-white mt-8 px-8 text-base'>NFT HOOK</Button>
                     </Cover>
                 </AspectRatio>
             </Banner>
             <Wrapper className='w-full mx-auto px-2 lg:px-4 max-w-screen-xl mt-4'>
                 {
-                    list?.map((v, i) => {
+                    list
+                    ? list?.map((v, i) => {
                         return <Link to={`/mint/${v.contract_addr}`} key={i}><NFT options={v} /></Link>
+                    })
+                    : Array.from({ length: 10 }).map((_, index) => {
+                        return <div key={index}>
+                            <Skeleton count={1} height={240} />
+                            <Skeleton count={1} />
+                            <Skeleton count={1} />
+                        </div>
                     })
                 }
             </Wrapper>
-            <div className='text-center py-8'>
+            {/* <div className='text-center py-8'>
                 <Button className='px-8'>View All</Button>
-            </div>
+            </div> */}
         </>
     );
 }
 
-let BG = 'https://shopweshenry.com/cdn/shop/files/Web_Header_new1_2000x.jpg?v=1705403279'
+// let  = 'https://shopweshenry.com/cdn/shop/files/Web_Header_new1_2000x.jpg?v=1705403279'
+import BG from '../../assets/images/bg.jpg';
 const Banner = styled.div`
 
 `

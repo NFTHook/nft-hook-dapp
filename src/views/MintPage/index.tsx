@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
 import { Button } from '@/components/ui/button';
-import { Terminal, Loader2 } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 import { nftDetail } from '@/api';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useToast } from "@/components/ui/use-toast";
@@ -14,7 +14,11 @@ import { formatEther } from 'viem'
 import { NftInfo, PriceV0 } from './type';
 import { useAppDispatch, useAppSelector, RootState } from "@/store";
 import { CircleCheckBig } from 'lucide-react';
-import ImageWithFallbackProps from '@/components/Image/index';
+import { Chains } from '@/utils/chain';
+import Skeleton from 'react-loading-skeleton';
+import Goback from '@/components/Goback';
+import Image from '@/components/Image/index';
+import CountUp from 'react-countup';
 
 export default function Mint() {
     const dispatch = useAppDispatch()
@@ -77,30 +81,48 @@ export default function Mint() {
 
     return (
         <>
+            <Goback />
             <Detail className='px-2 md:px-0 md:max-w-screen-lg flex-col md:flex-row mx-auto mt-10'>
-                <Image src={info?.img ?? ''}></Image>
-                <Info>
-                    <div>
-                        <Badge><Ping /><span className='ml-1'>Minting now</span></Badge>
-                        <Badge>Finished</Badge>
-                    </div>
-                    <div className='flex items-center mt-4'>
-                        <Terminal className="h-8 w-8" />
-                        <h1 className='barlow-medium-italic text-3xl'>{ info?.name }</h1>
-                    </div>
-                    <div className='tracking-widest mt-8 flex flex-col gap-4'>
-                        {
-                            priceList?.map((v, i) => {
-                                return <Button onClick={() => mintFun(v.mint_cnt)} key={i} disabled={isPending} variant="outline" className='border-black'>
-                                    {
-                                        (isPending || isConfirming) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <></>
-                                    }
-                                    
-                                    Mint { v.mint_cnt } for <span className='barlow-medium-italic px-1'> { Number(formatEther(BigInt(v.value))) * v.mint_cnt } </span> ETH
-                                </Button>
-                            })
-                        }
-                    </div>
+                <div className='flex-shrink w-full md:max-w-[500px]'>
+                    {
+                        info
+                        ? <ImageC className='w-full md:max-w-[500px]' src={info?.img ?? ''}></ImageC>
+                        : <Skeleton count={1} height={500} />
+                    }
+                </div>
+                <Info className='w-full'>
+                    {
+                        info
+                        ? <>
+                            <h3 className='text-sm flex items-center gap-1'><Image className='w-4 h-4' src={ Chains[info?.chain_id ?? '1'].img } /><span>{info?.chain_name}</span></h3>
+                            <div className='flex gap-2 mt-4'>
+                                <Badge><Ping /><span className='ml-1'>Minting now</span></Badge>
+                                <Badge>Holders: <CountUp end={info?.holder_num ?? 0} /></Badge>
+                            </div>
+                            <div className='flex items-center mt-4 gap-2'>
+                                <Sparkles className="h-8 w-8" />
+                                <h1 className='barlow-medium-italic text-3xl'>{ info?.name }</h1>
+                            </div>
+                            <div className='tracking-widest mt-8 flex flex-col gap-4'>
+                                {
+                                    priceList?.map((v, i) => {
+                                        return <Button onClick={() => mintFun(v.mint_cnt)} key={i} disabled={isPending} variant="outline" className='border-black'>
+                                            {
+                                                (isPending || isConfirming) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <></>
+                                            }
+
+                                            Mint { v.mint_cnt } for {
+                                                v.value === '0'
+                                                ? <span className='barlow-medium-italic'>&nbsp;FREE</span>
+                                                : <><span className='barlow-medium-italic px-1'> { formatEther(BigInt(v.value)) } </span> <span>ETH</span></>
+                                            }
+                                        </Button>
+                                    })
+                                }
+                            </div>
+                        </>
+                        : <Skeleton count={10} height={30} />
+                    }
                 </Info>
             </Detail>
         </>
@@ -114,9 +136,9 @@ const Detail = styled.div`
     gap: 32px;
 `
 
-const Image = styled(ImageWithFallbackProps)`
-    flex: 0 0 500px;
-    max-width: 500px;
+const ImageC = styled(Image)`
+    // flex: 0 0 500px;
+    // max-width: 500px;
 `
 
 const Info = styled.div`

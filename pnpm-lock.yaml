@@ -47,9 +47,15 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.3.1
+  react-countup:
+    specifier: ^6.5.3
+    version: 6.5.3(react@18.3.1)
   react-dom:
     specifier: ^18.2.0
     version: 18.3.1(react@18.3.1)
+  react-loading-skeleton:
+    specifier: ^3.4.0
+    version: 3.4.0(react@18.3.1)
   react-redux:
     specifier: ^9.1.1
     version: 9.1.2(@types/react@18.3.1)(react@18.3.1)(redux@5.0.1)
@@ -5738,6 +5744,10 @@ packages:
       yaml: 1.10.2
     dev: false
 
+  /countup.js@2.8.0:
+    resolution: {integrity: sha512-f7xEhX0awl4NOElHulrl4XRfKoNH3rB+qfNSZZyjSZhaAoUk6elvhH+MNxMmlmuUJ2/QNTWPSA7U4mNtIAKljQ==}
+    dev: false
+
   /crc-32@1.2.2:
     resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
     engines: {node: '>=0.8'}
@@ -8618,6 +8628,15 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /react-countup@6.5.3(react@18.3.1):
+    resolution: {integrity: sha512-udnqVQitxC7QWADSPDOxVWULkLvKUWrDapn5i53HE4DPRVgs+Y5rr4bo25qEl8jSh+0l2cToJgGMx+clxPM3+w==}
+    peerDependencies:
+      react: '>= 16.3.0'
+    dependencies:
+      countup.js: 2.8.0
+      react: 18.3.1
+    dev: false
+
   /react-devtools-core@5.1.0:
     resolution: {integrity: sha512-NRtLBqYVLrIY+lOa2oTpFiAhI7Hru0AUXI0tP9neCyaPPAzlZyeH0i+VZ0shIyRTJbpvyqbD/uCsewA2hpfZHw==}
     dependencies:
@@ -8669,6 +8688,14 @@ packages:
 
   /react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+    dev: false
+
+  /react-loading-skeleton@3.4.0(react@18.3.1):
+    resolution: {integrity: sha512-1oJEBc9+wn7BbkQQk7YodlYEIjgeR+GrRjD+QXkVjwZN7LGIcAFHrx4NhT7UHGBxNY1+zax3c+Fo6XQM4R7CgA==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.3.1
     dev: false
 
   /react-native-webview@11.26.1(react-native@0.74.1)(react@18.3.1):

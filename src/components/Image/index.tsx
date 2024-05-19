@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Default from './defaut_avatar.svg';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -17,8 +17,11 @@ const Image: React.FC<ImageProps> = ({
   const [neededSrc, setNeededSrc] = useState(Default || src);
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    setNeededSrc(src)
+  }, [src])
+
   const onLoad = (url: string) => {
-    console.log('handleOnLoad..')
 
     setError(false);
     const imgDom = document.createElement('img');

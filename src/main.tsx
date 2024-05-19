@@ -10,6 +10,7 @@ import { theme } from '@/theme';
 import { ThemeProvider } from 'styled-components';
 import '@/lib/wagmi';
 import './styles/index.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
