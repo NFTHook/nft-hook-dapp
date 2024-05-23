@@ -5,7 +5,7 @@ import { Twitter } from 'lucide-react';
 
 export default function Footer() {
     return (
-        <div className='border-t border-gray-200 py-8'>
+        <div className='border-t border-gray-200 py-24'>
             <div className='md:max-w-screen-xl mx-auto grid md:grid-cols-2'>
                 <LinkBox>
                     <H2 className='ml-4 barlow-medium'>Quick links</H2>

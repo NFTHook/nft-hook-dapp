@@ -78,7 +78,7 @@ const Header = () => {
                     {storeAddress ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button className="rounded-lg flex items-center justify-between divide-x divide-gray-300" variant="outline"><span className="pr-3">{ formatEther(account?.value ?? 0n).substring(0, 4) }{ account?.symbol }</span> <span className="pl-3">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</span></Button>
+                                <Button className="flex items-center justify-between divide-x divide-gray-300" variant="outline"><span className="pr-3">{ formatEther(account?.value ?? 0n).substring(0, 4) }{ account?.symbol }</span> <span className="pl-3">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</span></Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem onClick={() => logoutFn()} className="cursor-pointer">

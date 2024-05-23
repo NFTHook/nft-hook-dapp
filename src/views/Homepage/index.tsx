@@ -36,12 +36,12 @@ export default function Homepage() {
                 <AspectRatio ratio={storeDevice === 'mobile' ? 15 / 12 : 15 / 7} className="overflow-hidden">
                     <Image />
                     <Cover>
-                        <h1 className='barlow-light text-4xl md:text-6xl text-white'>Original Artwork</h1>
-                        <Button variant="outline" className='text-white mt-8 px-8 text-base'>NFT HOOK</Button>
+                        <h1 className='barlow-light text-4xl md:text-6xl text-white'>NFT HOOK</h1>
+                        {/* <Button variant="outline" className='text-white mt-8 px-8 text-base'>NFT HOOK</Button> */}
                     </Cover>
                 </AspectRatio>
             </Banner>
-            <Wrapper className='w-full mx-auto px-2 lg:px-4 max-w-screen-xl mt-4'>
+            <Wrapper className='w-full mx-auto px-2 lg:px-4 max-w-screen-xl py-8'>
                 {
                     list
                     ? list?.map((v, i) => {

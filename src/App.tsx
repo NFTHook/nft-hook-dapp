@@ -9,6 +9,7 @@ import About from "@/views/About";
 import Faqs from "@/views/Faqs";
 import Mint from "@/views/MintPage";
 
+
 function App() {
     const dispatch = useAppDispatch();
     const storeDevice = useAppSelector((s: RootState) => s.global.device)
