@@ -35,10 +35,9 @@ export default function Homepage() {
             <Banner>
                 <AspectRatio ratio={storeDevice === 'mobile' ? 15 / 12 : 15 / 7} className="overflow-hidden">
                     <Image />
-                    <Cover>
+                    {/* <Cover>
                         <h1 className='barlow-light text-4xl md:text-6xl text-white'>NFT HOOK</h1>
-                        {/* <Button variant="outline" className='text-white mt-8 px-8 text-base'>NFT HOOK</Button> */}
-                    </Cover>
+                    </Cover> */}
                 </AspectRatio>
             </Banner>
             <Wrapper className='w-full mx-auto px-2 lg:px-4 max-w-screen-xl py-8'>
@@ -64,7 +63,7 @@ export default function Homepage() {
 }
 
 // let  = 'https://shopweshenry.com/cdn/shop/files/Web_Header_new1_2000x.jpg?v=1705403279'
-import BG from '../../assets/images/bg.jpg';
+import BG from '../../assets/images/banner.jpg';
 const Banner = styled.div`
 
 `
@@ -72,7 +71,7 @@ const Cover = styled.div`
     position: absolute;
     z-index: 1;
     inset: 0;
-    background: rgba(0,0,0,.4);
+    background: rgba(0,0,0,.6);
     display: flex;
     flex-direction: column;
     align-items: center;
