@@ -66,19 +66,15 @@ const Header = () => {
                     <a href="/about" className="mr-6 flex items-center space-x-2">
                         About
                     </a>
-                    <a href="/faqs" className="mr-6 flex items-center space-x-2">
-                        Faq's
-                    </a>
                 </div>
                 <div className="md:hidden w-24">
                     <LOGO />
                 </div>
-                {/* <ListCollapse strokeWidth={2} /> */}
                 <Account className="md:mr-8">
                     {storeAddress ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button className="flex items-center justify-between divide-x divide-gray-300" variant="outline"><span className="pr-3">{ formatEther(account?.value ?? 0n).substring(0, 4) }{ account?.symbol }</span> <span className="pl-3">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</span></Button>
+                                <Button className="flex items-center justify-between divide-x divide-gray-300" variant="outline"><span className="pr-3">{ formatEther(account?.value ?? 0n).substring(0, 5) }{ account?.symbol }</span> <span className="pl-3">{storeAddress.replace(/^(\w{4}).*(\w{4})$/, "$1***$2")}</span></Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem onClick={() => logoutFn()} className="cursor-pointer">

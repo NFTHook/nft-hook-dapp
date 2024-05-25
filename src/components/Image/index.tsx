@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Default from './defaut_avatar.svg';
+import Default from './logo.png';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   loadingImg?: string,

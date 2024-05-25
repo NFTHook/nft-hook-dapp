@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Ping from "@/components/ui/ping";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useWriteContract, useWaitForTransactionReceipt, useWatchContractEvent, useChainId, useSwitchChain, useBalance } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt, useWatchContractEvent, useChainId, useSwitchChain, useBalance, useWatchPendingTransactions } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
 import { Button } from '@/components/ui/button';
-import { Loader2, Laugh, CircleCheckBig, CornerRightUp } from "lucide-react";
+import { Loader2, Laugh, CircleCheckBig, Copy } from "lucide-react";
 import { nftDetail } from '@/api';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useToast } from "@/components/ui/use-toast";
@@ -15,11 +15,18 @@ import { NftInfo, PriceV0 } from './type';
 import { useAppDispatch, useAppSelector, RootState } from "@/store";
 import { Chains } from '@/utils/chain';
 import { config } from '@/lib/wagmi';
-import Ethereum from '@/components/Logo/Ethereum';
+import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from 'react-loading-skeleton';
 import Goback from '@/components/Goback';
 import Image from '@/components/Image/index';
 import CountUp from 'react-countup';
+
+type ItemType = {
+    msgSender: string;
+    mintQuantity: bigint;
+    address: `0x${string}`;
+    transactionHash: string | null;
+};
 
 export default function Mint() {
     const dispatch = useAppDispatch()
@@ -32,6 +39,7 @@ export default function Mint() {
     const [ contractAddr, setContractAddr ] = useState<`0x${string}`>()
     const [ abi, setAbi ] = useState<ReadonlyArray<unknown>>([])
     const [ info, setInfo ] = useState<NftInfo | null>(null)
+    const [ recentList, setRecentList ] = useState<ItemType[]>([])
     const [ priceList, setPriceList ] = useState<PriceV0[] | null>(null)
     const { data: hash, isPending, writeContract } = useWriteContract({ config })
     const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash })
@@ -42,8 +50,21 @@ export default function Mint() {
         abi: abi,
         eventName: 'NewMint',
         chainId: chainId,
+        config,
         onLogs(logs) {
-            console.log('>>>>>>logs', logs)
+            setRecentList(preItems => {
+                let newItems: ItemType[] = logs.map(v => {
+                    return {
+                        // @ts-ignore
+                        msgSender: v.args.msgSender as string,
+                        // @ts-ignore
+                        mintQuantity: v.args.mintQuantity as bigint,
+                        address: v.address,
+                        transactionHash: v.transactionHash
+                    }
+                })
+                return [...newItems, ...preItems]
+            })
         }
     })
 
@@ -83,6 +104,7 @@ export default function Mint() {
         if (!storeAddress) {
             return open()
         }
+
         if (chainId != info?.chain_id) {
             switchChain({ chainId: info?.chain_id ?? 7777777 })
         }
@@ -93,14 +115,29 @@ export default function Mint() {
             })
         }
         if (contractAddr) {
+            
             writeContract({
                 address: contractAddr,
                 abi: abi,
+                chainId: chainId,
                 functionName: 'mint',
-                args: [count]
+                args: [count],
+                // @ts-ignore
+                value: amount,
             })
         }
     }
+
+    const handleCopy = (text: string) => {
+        navigator.clipboard.writeText(text).then(() => {
+            toast({
+                title: 'Copyed!',
+                action: <CircleCheckBig className='text-green-600' />,
+            })
+        }).catch(err => {
+          console.error('Failed to copy text: ', err);
+        });
+    };
 
     return (
         <>
@@ -150,16 +187,37 @@ export default function Mint() {
                 </Info>
             </Detail>
 
-            <Recent className='px-2 md:px-0 md:max-w-screen-lg mx-auto'>
-                <h1 className='text-2xl barlow-medium-italic'>recent mints</h1>
-                <div className='flex flex-col items-center gap-4 py-4'>
-                    <RecentItem>
-                        <Laugh className='w-5 h-5' />
-                        <div className='flex items-center'>{ '#0xdA50F2173E619AEAc6F92a62371fF8C4a5Eea480'.replace(/^(\w{4}).*(\w{4})$/, "$1***$2") } minted <span className='px-2 barlow-extrabold-italic'>1</span> for <Ethereum className='text-base ml-2' /><span className='barlow-extrabold-italic'>0.07ETH</span></div>
-                        <CornerRightUp className='w-5 h-5 ml-auto' />
-                    </RecentItem>
-                </div>
-            </Recent>
+            {
+                recentList?.length > 0
+                ?   <Recent className='px-2 md:px-0 md:max-w-screen-lg mx-auto'>
+                        <h1 className='text-2xl barlow-medium-italic'>recent mints</h1>
+                        <div className='flex flex-col items-center gap-2 py-4'>
+                            <AnimatePresence>
+                                {
+                                    recentList.map((v) => {
+                                        return (
+                                            <RecentItem 
+                                                key={v.transactionHash}
+                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.8 }}
+                                                transition={{ duration: 0.5 }}
+                                                onClick={() => handleCopy(v.transactionHash as string)}
+                                            >
+                                                <Laugh className='w-5 h-5' />
+                                                <div>{ v.msgSender.replace(/^(\w{4}).*(\w{4})$/, "$1****$2") }</div>
+                                                <span>minted</span>
+                                                <span className='px-2 barlow-extrabold-italic'>{ v.mintQuantity.toString() }</span> 
+                                                <Copy className='w-5 h-5 ml-auto' />
+                                            </RecentItem>
+                                        )
+                                    })
+                                }
+                            </AnimatePresence>
+                        </div>
+                    </Recent>
+                : <></>
+            }
         </>
     );
 }
@@ -167,7 +225,7 @@ export default function Mint() {
 const Recent = styled.div`
 
 `
-const RecentItem = styled.div`
+const RecentItem = styled(motion.div)`
     border: 1px solid black;
     background: black;
     color: white;
@@ -176,6 +234,10 @@ const RecentItem = styled.div`
     padding: 12px;
     width: 100%;
     gap: 8px;
+    cursor: pointer;
+    &:hover {
+        background: #1e1e1e;
+    }
 `
 
 const Detail = styled.div`

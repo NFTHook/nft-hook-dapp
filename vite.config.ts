@@ -17,7 +17,6 @@ export default defineConfig(({ mode }) => {
               [env.VITE_GLOB_API_URL]: {
                 target: env.VITE_PROXY_URL,
                 changeOrigin: true,
-                // rewrite: (path) => path.replace(/^\/localapi/, ''),
                 rewrite: (path) => path.replace(new RegExp(`^${env.VITE_GLOB_API_URL.replace(/\//g, '\\/')}`), ''),
               }
             }
