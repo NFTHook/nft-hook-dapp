@@ -13,7 +13,7 @@ export default function Goback() {
         <Bar className='md:max-w-screen-lg mx-auto py-4'>
             <Title className='flex items-center gap-1 cursor-pointer'>
                 <ChevronLeft className='arrow h-4 w-4 transform translate-y-[4px]' />
-                <h1 onClick={() => goBack()} className='text-xl barlow-medium-italic'>project</h1>
+                <h1 onClick={() => goBack()} className='text-xl barlow-medium-italic'>return</h1>
             </Title>
         </Bar>
     )

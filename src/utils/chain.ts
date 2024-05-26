@@ -3,11 +3,12 @@ import BASE from '@/assets/logo/base.png';
 import ETH from '@/assets/logo/eth.png';
 import OP from '@/assets/logo/op.png';
 
+interface Chain {
+    img: string
+    name: string
+}
 interface ChainsMap {
-    [key: string]: {
-        img: string
-        name: string
-    }
+    [key: string]: Chain
 }
 
 export const Chains: ChainsMap = {
@@ -27,4 +28,16 @@ export const Chains: ChainsMap = {
         img: BASE,
         name: 'Base'
     }
+}
+
+const defaultChain: Chain = {
+    img: ETH,
+    name: 'Ethereum'
+  };
+
+export function getChainById(id: string): Chain {
+    if (id in Chains) {
+        return Chains[id]
+    }
+    return defaultChain
 }

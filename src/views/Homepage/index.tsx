@@ -51,7 +51,7 @@ export default function Homepage() {
                     <SelectContent>
                         {
                             chains?.map(v => {
-                                return <SelectItem value={v.id.toString()}>{ v.name }</SelectItem>
+                                return <SelectItem key={v.id} value={v.id.toString()}>{ v.name }</SelectItem>
                             })
                         }
                     </SelectContent>
@@ -80,7 +80,6 @@ export default function Homepage() {
     );
 }
 
-// let  = 'https://shopweshenry.com/cdn/shop/files/Web_Header_new1_2000x.jpg?v=1705403279'
 import BG from "../../assets/images/banner.jpg";
 const Banner = styled.div``;
 const Cover = styled.div`

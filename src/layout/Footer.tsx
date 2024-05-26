@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Button } from "@/components/ui/button"
 import { Link } from 'react-router-dom';
-import { Twitter } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -14,9 +13,6 @@ export default function Footer() {
                     </Button>
                     <Button variant="link" asChild>
                         <Link to="/about">About</Link>
-                    </Button>
-                    <Button variant="link" asChild>
-                        <Link to="/faqs">Faq's</Link>
                     </Button>
                 </LinkBox>
                 <div className='px-4 md:px-0 mt-4 md:mt-0'>
