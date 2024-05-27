@@ -7,4 +7,5 @@ export interface NFTv0 {
     holder_num: number
     img: string
     name: string
+    id: number
 }

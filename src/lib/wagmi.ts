@@ -1,7 +1,7 @@
 import React from 'react';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import { zoraSepolia, mainnet, optimism, base, zora  } from 'wagmi/chains';
+import { mainnet, optimism, base, zora  } from 'wagmi/chains';
 import { QueryClient } from '@tanstack/react-query';
 
 // 0. Setup queryClient
@@ -18,7 +18,7 @@ const metadata = {
     icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const chains = [zoraSepolia, mainnet, optimism, base, zora] as const
+const chains = [mainnet, optimism, base, zora] as const
 export const config = defaultWagmiConfig({
     chains,
     projectId,

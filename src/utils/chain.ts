@@ -6,6 +6,7 @@ import OP from '@/assets/logo/op.png';
 interface Chain {
     img: string
     name: string
+    explore: string
 }
 interface ChainsMap {
     [key: string]: Chain
@@ -14,25 +15,30 @@ interface ChainsMap {
 export const Chains: ChainsMap = {
     '7777777': {
         img: ZORA,
-        name: 'Zora'
+        name: 'Zora',
+        explore: 'https://explorer.zora.energy',
     },
     '1': {
         img: ETH,
-        name: 'Ethereum'
+        name: 'Ethereum',
+        explore: 'https://etherscan.io',
     },
     '10': {
         img: OP,
-        name: 'OP Mainnet'
+        name: 'OP Mainnet',
+        explore: 'https://optimistic.etherscan.io'
     },
     '8453': {
         img: BASE,
-        name: 'Base'
+        name: 'Base',
+        explore: 'https://basescan.org',
     }
 }
 
 const defaultChain: Chain = {
     img: ETH,
-    name: 'Ethereum'
+    name: 'Ethereum',
+    explore: 'https://etherscan.io/',
   };
 
 export function getChainById(id: string): Chain {

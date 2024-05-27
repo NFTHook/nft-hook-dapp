@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useAppSelector, RootState } from "@/store";
-import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Link } from "react-router-dom";
 import { nftList } from "@/api";
@@ -12,11 +11,13 @@ import Skeleton from "react-loading-skeleton";
 import NFT from "@/components/NFT";
 import { useChains } from 'wagmi'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import EMPTY from '@/assets/images/empty.png';
 
 export default function Homepage() {
     const storeDevice = useAppSelector((s: RootState) => s.global.device);
     const { toast } = useToast();
     const [list, setList] = useState<NFTv0[] | null>(null);
+    const [org, setOrg] = useState<NFTv0[] | null>(null);
     const chains = useChains()
 
     useEffect(() => {
@@ -24,6 +25,7 @@ export default function Homepage() {
         nftList().then((res) => {
             if (res.code === ResultEnum.SUCCESS) {
                 setList(res.data.list);
+                setOrg(res.data.list);
             } else {
                 toast({
                     variant: "destructive",
@@ -32,6 +34,13 @@ export default function Homepage() {
             }
         });
     }, []);
+
+    const onChangeSelect = (e: string) => {
+        let l = org?.filter(v => {
+            return v.chain_id == e
+        }) || []
+        setList(l)
+    }
 
     return (
         <>
@@ -44,7 +53,7 @@ export default function Homepage() {
                 </AspectRatio>
             </Banner>
             <div className="w-full mx-auto px-2 lg:px-4 max-w-screen-xl py-4">
-                <Select>
+                <Select onValueChange={(e) => onChangeSelect(e)}>
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="All Chains" />
                     </SelectTrigger>
@@ -59,13 +68,13 @@ export default function Homepage() {
             </div>
             <Wrapper className="w-full mx-auto px-2 lg:px-4 max-w-screen-xl pb-8">
                 {list
-                    ? list?.map((v, i) => {
-                          return (
-                              <Link to={`/mint/${v.contract_addr}`} key={i}>
-                                  <NFT options={v} />
-                              </Link>
-                          );
-                      })
+                    ? list?.map((v) => {
+                        return (
+                            <Link to={`/mint/${v.contract_addr}`} key={v.id}>
+                                <NFT options={v} />
+                            </Link>
+                        );
+                    })
                     : Array.from({ length: 10 }).map((_, index) => {
                           return (
                               <div key={index}>
@@ -76,6 +85,17 @@ export default function Homepage() {
                           );
                       })}
             </Wrapper>
+            {
+                list
+                    ? (
+                        list?.length == 0
+                        ? <div className="pb-10">
+                            <img className="w-60 block mx-auto my-8" src={EMPTY} alt="empty" />
+                        </div>
+                        : <></>
+                    )
+                    : <></>
+            }
         </>
     );
 }

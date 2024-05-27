@@ -6,14 +6,14 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
 import { Button } from '@/components/ui/button';
-import { Loader2, Laugh, CircleCheckBig, Copy } from "lucide-react";
+import { Loader2, Laugh, CircleCheckBig, CornerRightUp } from "lucide-react";
 import { nftDetail } from '@/api';
 import { ResultEnum } from '@/enums/httpEnum';
 import { useToast } from "@/components/ui/use-toast";
 import { formatEther } from 'viem'
 import { NftInfo, PriceV0 } from './type';
 import { useAppDispatch, useAppSelector, RootState } from "@/store";
-import { Chains } from '@/utils/chain';
+import { getChainById } from '@/utils/chain';
 import { config } from '@/lib/wagmi';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from 'react-loading-skeleton';
@@ -106,7 +106,7 @@ export default function Mint() {
         }
 
         if (chainId != info?.chain_id) {
-            switchChain({ chainId: info?.chain_id ?? 7777777 })
+            switchChain({ chainId: info?.chain_id as number })
         }
         if (account && (account?.value < BigInt(amount))) {
             return toast({
@@ -128,15 +128,9 @@ export default function Mint() {
         }
     }
 
-    const handleCopy = (text: string) => {
-        navigator.clipboard.writeText(text).then(() => {
-            toast({
-                title: 'Copyed!',
-                action: <CircleCheckBig className='text-green-600' />,
-            })
-        }).catch(err => {
-          console.error('Failed to copy text: ', err);
-        });
+    const handleGoto = (addr: string) => {
+        let chaininfo = getChainById(info?.chain_id as string)
+        window.open(`${chaininfo.explore}/address/${addr}`)
     };
 
     return (
@@ -161,7 +155,7 @@ export default function Mint() {
                             <div className='flex items-center gap-2 mt-3'>
                                 <Badge className='rounded-md'><Ping /><span className='ml-1'>Minting now</span></Badge>
                                 <Badge className='rounded-md'>Public Mint</Badge>
-                                <h3 className='text-sm flex items-center gap-1 ml-auto'><Image className='w-4 h-4' src={ Chains[info?.chain_id ?? '1'].img } /><span>{info?.chain_name}</span></h3>
+                                <h3 className='text-sm flex items-center gap-1 ml-auto'><Image className='w-4 h-4' src={ getChainById(info?.chain_id as string).img } /><span>{info?.chain_name}</span></h3>
                             </div>
                             
                             <div className='tracking-widest mt-8 flex flex-col gap-4'>
@@ -202,13 +196,13 @@ export default function Mint() {
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 exit={{ opacity: 0, scale: 0.8 }}
                                                 transition={{ duration: 0.5 }}
-                                                onClick={() => handleCopy(v.transactionHash as string)}
+                                                onClick={() => handleGoto(v.msgSender as string)}
                                             >
                                                 <Laugh className='w-5 h-5' />
                                                 <div>{ v.msgSender.replace(/^(\w{4}).*(\w{4})$/, "$1****$2") }</div>
                                                 <span>minted</span>
                                                 <span className='px-2 barlow-extrabold-italic'>{ v.mintQuantity.toString() }</span> 
-                                                <Copy className='w-5 h-5 ml-auto' />
+                                                <CornerRightUp className='w-5 h-5 ml-auto' />
                                             </RecentItem>
                                         )
                                     })

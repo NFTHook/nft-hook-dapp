@@ -15,30 +15,30 @@ export default function About() {
                 <p className='barlow-light-italic mt-4'>This strategic pivot to L2 was met with remarkable success. We have issued millions of NFTs, democratizing access to digital assets. Our most popular NFT boasts over 100,000 holders, a testament to our approach of making NFTs accessible and valuable across multiple blockchains.</p>
                 <p className='barlow-light-italic mt-4'>Our vision is to continue this trajectory, enhancing the utility and engagement of our NFTs. We are committed to innovating and expanding the functionalities of our NFTs, ensuring they offer more than just ownership—creating new ways for holders to interact with and benefit from their digital assets.</p>
                 <h1 className='text-4xl mt-12'>About Our Team</h1>
-                <p className='barlow-light-italic mt-8'>We are a diverse team with backgrounds in technology, art, and business, united by our passion for NFTs and blockchain technology. Our expertise spans smart contract development, digital art creation, and community building. Together, we strive to push the boundaries of what's possible with NFTs, always putting our users first and focusing on innovation and inclusivity.</p>
                 <div className='grid grid-cols-3 gap-12 px-24 mt-10'>
                     <AvatarBox>
                         <AspectRatio ratio={9 / 9} className="bg-muted overflow-hidden relative">
                             <Image className='image rounded-none object-cover' src={AVATAR01} />
                         </AspectRatio>
                         <h1>JC.LEE</h1>
-                        <h2>Developer</h2>
+                        <h2>DEV</h2>
                     </AvatarBox>
                     <AvatarBox>
                         <AspectRatio ratio={9 / 9} className="bg-muted overflow-hidden relative">
                             <Image className='image rounded-none object-cover' src={AVATAR02} />
                         </AspectRatio>
                         <h1>BAIQI</h1>
-                        <h2>Artist</h2>
+                        <h2>ARTIST&DEV</h2>
                     </AvatarBox>
                     <AvatarBox>
                         <AspectRatio ratio={9 / 9} className="bg-muted overflow-hidden relative">
                             <Image className='image rounded-none object-cover' src={AVATAR03} />
                         </AspectRatio>
                         <h1>BB</h1>
-                        <h2>Developer</h2>
+                        <h2>DEV</h2>
                     </AvatarBox>
                 </div>
+                <p className='barlow-light-italic mt-8'>We are a diverse team with backgrounds in technology, art, and business, united by our passion for NFTs and blockchain technology. Our expertise spans smart contract development, digital art creation, and community building. Together, we strive to push the boundaries of what's possible with NFTs, always putting our users first and focusing on innovation and inclusivity.</p>
             </AboutWrapper>
         </>
     );
