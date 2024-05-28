@@ -6,7 +6,6 @@ import { setDevice } from "@/store/module/global";
 import Layout from '@/layout/Layout';
 import Homepage from "@/views/Homepage";
 import About from "@/views/About";
-import Faqs from "@/views/Faqs";
 import Mint from "@/views/MintPage";
 
 
@@ -41,10 +40,6 @@ function App() {
                 {
                     path: "/about",
                     Component: About,
-                },
-                {
-                    path: "/faqs",
-                    Component: Faqs,
                 },
                 {
                     path: "/mint/:ca",

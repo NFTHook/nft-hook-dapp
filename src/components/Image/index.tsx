@@ -31,7 +31,7 @@ const Image: React.FC<ImageProps> = ({
     };
   }
 
-  // 加载失败
+  // error
   const onError = () => {
     setNeededSrc(Default);
   }

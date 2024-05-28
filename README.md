@@ -1,6 +1,6 @@
 # NFTHook-Dapp
 
-NFTHook-Dapp is a modern art gallery application built using React, Redux, Vite, and ShadcnUI. The project features a virtual exhibition space allowing users to browse various artworks and learn about their details.
+NFTHook-Dapp is a modern art gallery application built using React, Redux, Vite, and ShadcnUI.
 
 ## Technology Stack
 

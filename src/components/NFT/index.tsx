@@ -23,7 +23,7 @@ const Cover = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.3);
     top: 0;
     left: 0;
     right: 0;

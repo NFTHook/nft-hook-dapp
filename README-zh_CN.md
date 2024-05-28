@@ -1,7 +1,6 @@
 # NFTHook-Dapp
 
-NFTHook-Dapp 是一个使用 React、Redux、Vite 和 ShadcnUI 技术栈构建的现代艺术画廊应用。该项目展示了一个虚拟的艺术品展览空间，允许用户浏览不同的艺术作品并了解其详细信息。
-
+NFTHook-Dapp 是一个使用 React、Redux、Vite 和 ShadcnUI 技术栈构建的现代艺术画廊应用。
 ## 技术栈
 
 - **React**: 用于构建用户界面的 JavaScript 库。

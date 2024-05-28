@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Button } from "@/components/ui/button"
-import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
@@ -9,15 +8,21 @@ export default function Footer() {
                 <LinkBox>
                     <H2 className='ml-4 barlow-medium'>Quick links</H2>
                     <Button className='mt-4' variant="link" asChild>
-                        <Link to="/">Home</Link>
+                        <a href="https://optimism.io/" className='barlow-light' target='_blank'>Optimism</a>
                     </Button>
                     <Button variant="link" asChild>
-                        <Link to="/about">About</Link>
+                        <a href="https://opensea.io/" className='barlow-light' target='_blank'>Opensea</a>
+                    </Button>
+                    <Button variant="link" asChild>
+                        <a href="https://element.market/" className='barlow-light' target='_blank'>Element</a>
+                    </Button>
+                    <Button variant="link" asChild>
+                        <a href="https://magiceden.io/" className='barlow-light' target='_blank'>Magiceden</a>
                     </Button>
                 </LinkBox>
                 <div className='px-4 md:px-0 mt-4 md:mt-0'>
                     <H2 className='barlow-medium'>Contact</H2>
-                    <p className='mt-4'>Have questions or just want to say hi? Drop us a line at <a className="underline text-black" href="mailto:nfthook@gmail.com" title="mailto:nfthook@gmail.com">[nfthook@gmail.com]</a>, and let's make something amazing together!</p>
+                    <p className='mt-4 barlow-light'>Have questions or just want to say hi? Drop us a line at <a className="underline text-black" href="mailto:nfthook@gmail.com" title="mailto:nfthook@gmail.com">[nfthook@gmail.com]</a>, and let's make something amazing together!</p>
                 </div>
             </div>
             <div className='md:max-w-screen-xl mx-auto pr-8 flex items-center mt-6 md:mt-0 justify-center md:justify-end'>

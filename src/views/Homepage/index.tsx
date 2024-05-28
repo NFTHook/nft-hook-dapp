@@ -100,7 +100,7 @@ export default function Homepage() {
     );
 }
 
-import BG from "../../assets/images/banner.jpg";
+import BG from "../../assets/images/banner.png";
 const Banner = styled.div``;
 // const Cover = styled.div`
 //     position: absolute;

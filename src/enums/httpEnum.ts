@@ -1,5 +1,5 @@
 /**
- * @description: 请求结果集
+ * @description: Request result code
  */
 export enum ResultEnum {
     SUCCESS = '200'
