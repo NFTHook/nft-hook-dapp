@@ -1,6 +1,6 @@
-# ArtChainGallery
+# NFTHook-Dapp
 
-ArtChainGallery 是一个使用 React、Redux、Vite 和 ShadcnUI 技术栈构建的现代艺术画廊应用。该项目展示了一个虚拟的艺术品展览空间，允许用户浏览不同的艺术作品并了解其详细信息。
+NFTHook-Dapp 是一个使用 React、Redux、Vite 和 ShadcnUI 技术栈构建的现代艺术画廊应用。该项目展示了一个虚拟的艺术品展览空间，允许用户浏览不同的艺术作品并了解其详细信息。
 
 ## 技术栈
 
@@ -11,14 +11,14 @@ ArtChainGallery 是一个使用 React、Redux、Vite 和 ShadcnUI 技术栈构�
 
 ## 快速开始
 
-要在本地运行 ArtChainGallery，请按照以下步骤操作：
+要在本地运行 NFTHook-Dapp，请按照以下步骤操作：
 
 ### 克隆仓库
 
 首先，克隆仓库到本地机器上：
 
-git clone git@github.com:xiaobaiwenlian/ArtChainGallery.git
-cd ArtChainGallery
+git clone git@github.com:xiaobaiwenlian/NFTHook-Dapp.git
+cd NFTHook-Dapp
 
 ### 安装依赖
 
@@ -44,7 +44,7 @@ pnpm run build
 
 ## 贡献
 
-欢迎为 ArtChainGallery 贡献代码或提出改进建议。请先发起 issue 讨论您遇到的问题或新增功能，然后您可以提交 Pull Request。
+欢迎为 NFTHook-Dapp 贡献代码或提出改进建议。请先发起 issue 讨论您遇到的问题或新增功能，然后您可以提交 Pull Request。
 
 ## 许可证
 
