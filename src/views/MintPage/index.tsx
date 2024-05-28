@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Ping from "@/components/ui/ping";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useWriteContract, useWaitForTransactionReceipt, useWatchContractEvent, useChainId, useSwitchChain, useBalance, useWatchPendingTransactions } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt, useWatchContractEvent, useChainId, useSwitchChain, useBalance } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ import { ResultEnum } from '@/enums/httpEnum';
 import { useToast } from "@/components/ui/use-toast";
 import { formatEther } from 'viem'
 import { NftInfo, PriceV0 } from './type';
-import { useAppDispatch, useAppSelector, RootState } from "@/store";
+import { useAppSelector, RootState } from "@/store";
 import { getChainById } from '@/utils/chain';
 import { config } from '@/lib/wagmi';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -29,7 +29,6 @@ type ItemType = {
 };
 
 export default function Mint() {
-    const dispatch = useAppDispatch()
     const storeAddress = useAppSelector((s: RootState) => s.user.address);
     const chainId = useChainId()
     const { data: account } = useBalance({ address: `0x${storeAddress.substring(2)}` })
@@ -42,7 +41,7 @@ export default function Mint() {
     const [ recentList, setRecentList ] = useState<ItemType[]>([])
     const [ priceList, setPriceList ] = useState<PriceV0[] | null>(null)
     const { data: hash, isPending, writeContract } = useWriteContract({ config })
-    const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash })
+    const { isLoading: isConfirming } = useWaitForTransactionReceipt({ hash })
     const { switchChain } = useSwitchChain({ config })
 
     useWatchContractEvent({

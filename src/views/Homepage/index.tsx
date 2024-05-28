@@ -102,16 +102,16 @@ export default function Homepage() {
 
 import BG from "../../assets/images/banner.jpg";
 const Banner = styled.div``;
-const Cover = styled.div`
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
+// const Cover = styled.div`
+//     position: absolute;
+//     z-index: 1;
+//     inset: 0;
+//     background: rgba(0, 0, 0, 0.6);
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+// `;
 const Image = styled.div`
     background: url(${BG}) no-repeat center center / cover;
     position: absolute;

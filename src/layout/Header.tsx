@@ -7,7 +7,6 @@ import { setAddress } from "@/store/module/user";
 import { useAppDispatch, useAppSelector, RootState } from "@/store";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ListCollapse } from "lucide-react";
 import LOGO from "@/components/Logo";
 
 const Header = () => {

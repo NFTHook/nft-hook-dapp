@@ -15,19 +15,15 @@ const Image: React.FC<ImageProps> = ({
 }) => {
   const imgRef = useRef<HTMLDivElement>(null);
   const [neededSrc, setNeededSrc] = useState(Default || src);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     setNeededSrc(src)
   }, [src])
 
   const onLoad = (url: string) => {
-
-    setError(false);
     const imgDom = document.createElement('img');
     imgDom.src = url;
     imgDom.onload = function () {
-      console.log('onload--');
       setNeededSrc(url);
     }
     imgDom.onerror = () => {

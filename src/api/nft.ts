@@ -1,6 +1,5 @@
 import service from '@/utils/request.js';
 import { PriceV0, NftInfo } from '@/views/MintPage/type';
-import qs from "qs";
 
 interface BasicResponseModel<T = any> {
   code: string | number;
