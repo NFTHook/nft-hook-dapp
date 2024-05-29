@@ -6,7 +6,7 @@ export default function Footer() {
         <div className='border-t border-gray-200 py-24'>
             <div className='md:max-w-screen-xl mx-auto grid md:grid-cols-2'>
                 <LinkBox>
-                    <H2 className='ml-4 barlow-medium'>Quick links</H2>
+                    <H2 className='ml-4 barlow-medium'>Links</H2>
                     <Button className='mt-4' variant="link" asChild>
                         <a href="https://optimism.io/" className='barlow-light' target='_blank'>Optimism</a>
                     </Button>
