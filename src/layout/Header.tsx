@@ -65,9 +65,6 @@ const Header = () => {
                     <a href="/about" className="mr-6 flex items-center space-x-2">
                         About
                     </a>
-                    <span className="mr-6 flex items-center space-x-2">
-                        C2C(coming soon)
-                    </span>
                 </div>
                 <div className="md:hidden w-24">
                     <LOGO />
