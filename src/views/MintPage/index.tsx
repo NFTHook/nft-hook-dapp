@@ -154,7 +154,7 @@ export default function Mint() {
                             <div className='flex items-center gap-2 mt-3'>
                                 <Badge className='rounded-md'><Ping /><span className='ml-1'>Minting now</span></Badge>
                                 <Badge className='rounded-md'>Public Mint</Badge>
-                                <h3 className='text-sm flex items-center gap-1 ml-auto'><Image className='w-4 h-4' src={ getChainById(info?.chain_id as string).img } /><span>{info?.chain_name}</span></h3>
+                                <h3 onClick={() => handleGoto(info?.contract_addr)} className='text-sm cursor-pointer underline flex items-center gap-1 ml-auto'><Image className='w-4 h-4' src={ getChainById(info?.chain_id as string).img } /><span>{info?.chain_name}</span></h3>
                             </div>
                             
                             <div className='tracking-widest mt-8 flex flex-col gap-4'>
