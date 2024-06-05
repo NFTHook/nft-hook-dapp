@@ -59,12 +59,6 @@ const Header = () => {
                     <a href="/" className="mr-6 w-16">
                         <LOGO />
                     </a>
-                    <a href="/" className="mr-6 flex items-center space-x-2">
-                        Home
-                    </a>
-                    <a href="/about" className="mr-6 flex items-center space-x-2">
-                        About
-                    </a>
                 </div>
                 <div className="md:hidden w-24">
                     <LOGO />

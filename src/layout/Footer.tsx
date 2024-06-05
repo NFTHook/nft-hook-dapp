@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 export default function Footer() {
     return (
         <div className='border-t border-gray-200 py-24'>
-            <div className='md:max-w-screen-xl mx-auto grid md:grid-cols-2'>
+            <div className='md:max-w-screen-xl mx-auto md:flex md:gap-4'>
                 <LinkBox>
                     <H2 className='ml-4 barlow-medium'>Links</H2>
                     <Button className='mt-4' variant="link" asChild>
@@ -18,6 +18,15 @@ export default function Footer() {
                     </Button>
                     <Button variant="link" asChild>
                         <a href="https://magiceden.io/" className='barlow-light' target='_blank'>Magiceden</a>
+                    </Button>
+                </LinkBox>
+                <LinkBox className='mt-4 md:mt-0'>
+                    <H2 className='ml-4 barlow-medium'>Routing</H2>
+                    <Button className='mt-4' variant="link" asChild>
+                        <a href="/" className='barlow-light'>Home</a>
+                    </Button>
+                    <Button variant="link" asChild>
+                        <a href="/about" className='barlow-light'>About</a>
                     </Button>
                 </LinkBox>
                 <div className='px-4 md:px-0 mt-4 md:mt-0'>
@@ -38,6 +47,7 @@ const LinkBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    flex: 0 0 300px;
 `
 const H2 = styled.h2`
     font-size: 18px;

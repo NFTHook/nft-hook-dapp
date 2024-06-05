@@ -36,6 +36,9 @@ export default function Homepage() {
     }, []);
 
     const onChangeSelect = (e: string) => {
+
+        if (e === 'all') return setList(org);
+
         let l = org?.filter(v => {
             return v.chain_id == e
         }) || []
@@ -45,7 +48,7 @@ export default function Homepage() {
     return (
         <>
             <Banner>
-                <AspectRatio ratio={storeDevice === "mobile" ? 15 / 12 : 15 / 3} className="overflow-hidden">
+                <AspectRatio ratio={storeDevice === "mobile" ? 15 / 7 : 15 / 3} className="overflow-hidden">
                     <Image />
                     {/* <Cover>
                         <h1 className='barlow-light text-4xl md:text-6xl text-white'>NFT HOOK</h1>
@@ -63,6 +66,7 @@ export default function Homepage() {
                                 return <SelectItem key={v.id} value={v.id.toString()}>{ v.name }</SelectItem>
                             })
                         }
+                        <SelectItem value="all">All Chains</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
