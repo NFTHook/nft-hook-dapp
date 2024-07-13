@@ -149,7 +149,7 @@ export default function Mint() {
                         ? <>
                             <div className='flex items-center gap-2'>
                                 <h1 className='barlow-medium-italic text-3xl'>{ info?.name }</h1>
-                                <h2 className='text-xl barlow-medium-italic ml-auto'>Holders: <CountUp end={info?.holder_num ?? 0} /></h2>
+                                <h2 className='text-xl barlow-medium-italic ml-auto whitespace-nowrap'>Holders: <CountUp end={info?.holder_num ?? 0} /></h2>
                             </div>
                             <div className='flex items-center gap-2 mt-3'>
                                 <Badge className='rounded-md'><Ping /><span className='ml-1'>Minting now</span></Badge>
