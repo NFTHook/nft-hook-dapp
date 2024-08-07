@@ -17,20 +17,26 @@ To run NFTHook-Dapp locally, follow these steps:
 
 First, clone the repository to your local machine:
 
-git clone git@github.com:xiaobaiwenlian/NFTHook-Dapp.git
-cd NFTHook-Dapp
+```shell
+git clone git@github.com:NFTHook/nft-hook-dapp.git
+cd nft-hook-dapp
+```
 
 ### Install Dependencies
 
 Use `pnpm` to install the project dependencies:
 
+```shell
 pnpm install
+```
 
 ### Run Development Server
 
 Start the development server to preview the project locally:
 
+```shell
 pnpm run dev
+```
 
 This command will launch a local server, and it will update in real-time whenever you make changes to the code.
 
@@ -38,7 +44,9 @@ This command will launch a local server, and it will update in real-time wheneve
 
 To build the application for production, run:
 
+```shell
 pnpm run build
+```
 
 After building, you can find the output static files in the `dist/` directory, ready for deployment.
 

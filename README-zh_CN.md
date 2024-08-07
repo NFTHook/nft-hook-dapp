@@ -16,20 +16,26 @@ NFTHook-Dapp 是一个使用 React、Redux、Vite 和 ShadcnUI 技术栈构建�
 
 首先，克隆仓库到本地机器上：
 
-git clone git@github.com:xiaobaiwenlian/NFTHook-Dapp.git
-cd NFTHook-Dapp
+```shell
+git clone git@github.com:NFTHook/nft-hook-dapp.git
+cd nft-hook-dapp
+```
 
 ### 安装依赖
 
 使用 `pnpm` 来安装项目依赖：
 
+```shell
 pnpm install
+```
 
 ### 运行开发服务器
 
 启动开发服务器，在本地预览项目：
 
+```shell
 pnpm run dev
+```
 
 此命令将启动一个本地服务器，并且每当您对代码进行更改时，都会实时更新。
 
@@ -37,7 +43,9 @@ pnpm run dev
 
 要构建用于生产的应用，请运行：
 
+```shell
 pnpm run build
+```
 
 构建完成后，您可以在 `dist/` 目录下找到输出的静态文件，这些文件已经准备好用于部署。
 
