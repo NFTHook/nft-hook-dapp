@@ -7,10 +7,23 @@ import { setAddress } from "@/store/module/user";
 import { useAppDispatch, useAppSelector, RootState } from "@/store";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import LOGO from "@/components/Logo";
 
 const Header = () => {
     const dispatch = useAppDispatch();
+    const { toast } = useToast();
     const storeAddress = useAppSelector((s: RootState) => s.user.address);
     const { data: account } = useBalance({ address: `0x${storeAddress.substring(2)}` })
     const { address, status, chain } = useAccount();
@@ -52,6 +65,13 @@ const Header = () => {
         };
     }, [lastScrollTop]);
 
+    const comesoonFn = () => {
+        toast({
+            variant: "destructive",
+            title: 'Coming Sooooooooooon!',
+        });
+    }
+
     return (
         <HeaderW className={`${showHeader ? 'show' : 'hide'} sticky z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-background/60`}>
             <HeaderContainer className="container flex max-w-screen-xl items-center text-sm">
@@ -63,6 +83,19 @@ const Header = () => {
                 <div className="md:hidden w-24">
                     <LOGO />
                 </div>
+
+                <AlertDialog>
+                    <AlertDialogTrigger><div className="barlow-medium cursor-pointer hover:opacity-80">Launch</div></AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                        <AlertDialogTitle>Coming Soooooooooon!</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogAction>OK</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+
                 <Account className="md:mr-8">
                     {storeAddress ? (
                         <DropdownMenu>
